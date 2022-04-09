@@ -17,7 +17,7 @@ namespace XXXCalculator2020
 		readonly WindowsMediaPlayer LoadingScreenSound = new WindowsMediaPlayer();
 		readonly WindowsMediaPlayer m_CompletedSound = new WindowsMediaPlayer();
 		readonly ButtonGifs m_ButtonGifs = new ButtonGifs();
-		readonly WinningGifsForm m_WinningGifForm = new WinningGifsForm();
+		
 		readonly CompletedForm m_CompletedGif = new CompletedForm();
 		readonly Timer m_Timer = new Timer();
 		//readonly MainMenuForm m_MainMenuForm = new MainMenuForm();
@@ -39,7 +39,7 @@ namespace XXXCalculator2020
 		{
 			
 			InitializeComponent();
-			
+			this.CenterToScreen();
 			LoadScreenTimer.Start();
 						
 			LoadingScreenSound.URL = "WelcomeNormalRobot.mp3";
@@ -49,7 +49,7 @@ namespace XXXCalculator2020
 
 			CenterToParent();    // Centers this form with Startgameform
 
-			Cursor.Position = new Point(0,0);  // Puts Cursor 0,0 position on your Windowsdesktop
+			//Cursor.Position = new Point(0,0); // Puts Cursor 0,0 position on your Windowsdesktop
 			Cursor.Hide();
 
 			MusicVolume.Visible = false;
@@ -79,7 +79,7 @@ namespace XXXCalculator2020
 			MusicPlayBoy.Visible = false;
 			Bonus.Visible = false;
 			IconText.Visible = false;
-			Restart.Visible = false;
+			MainMenuButton.Visible = false;
 			Quit_Button.Visible = false;  // quit button
 			answer.Visible = false;
 			
@@ -106,49 +106,44 @@ namespace XXXCalculator2020
 			GarbageCollector();
 			void Timer_Tick(object sender, EventArgs e)
 			{
-				
-				
+								
 				m_Timer.Stop(); // timer stop and loadscreen IsNotActive
 				
-				Cursor.Position = new Point(0, 0);  // Puts Cursor 0,0 position in your Windows
+				//Cursor.Position = new Point(0, 0);  // Puts Cursor upperleft position in your Windows
 				Cursor.Show();
-
-				
+								
 				MusicVolume.Visible = true;
 				MusicVolumeText.Visible = true;
 
 				m_mediaPlayer.URL = "bazzdog.mp3";
+				m_mediaPlayer.settings.playCount = 1;
+				m_mediaPlayer.settings.setMode("Loop", true);
+				m_mediaPlayer.settings.volume = 70;
 				m_mediaPlayer.controls.play();
-				m_mediaPlayer.settings.playCount = 100;
 				
-				
+
 
 				Lights2Gif.Visible = true;
 				SpaceBackRoundGif.Visible = true;
-
-				
+								
 				Loading_Gif.Dispose();
 				LoadingScreenGif.Dispose();
 				BlackSticker.Dispose();
-
 
 				ScoreBoard.Text = "Score";
 				answer.Text = "<3 Welcome & Enjoy <3";
 
 				ScoreBoard.Visible = true;
-				
-				
-				
+								
 				SpaceBackRoundGif.Visible = true;
-				
-				
+								
 				Lights2Gif.Visible = true;
 				pictureBox1.Visible = true;
 				MusicStopBoy.Visible = true;
 				MusicPlayBoy.Visible = true;
 				Bonus.Visible = true;
 				IconText.Visible = true;
-				Restart.Visible = true;
+				MainMenuButton.Visible = true;
 				Quit_Button.Visible = true;  
 				answer.Visible = true;
 				
@@ -1572,6 +1567,7 @@ namespace XXXCalculator2020
 			{
 
 				Application.Exit();
+				
 			}
 			catch
 			{
@@ -1579,23 +1575,25 @@ namespace XXXCalculator2020
 			}
 
 		}
-		
-		public void Restart_Click(object sender, EventArgs e)   // Back to Main Menu
+		private void MainMenuButton_Click(object sender, EventArgs e)
 		{
 			try
 			{
-				Application.Restart();
+				//Application.Restart();
+				m_mediaPlayer.controls.stop();
+				this.Close();
+				MainMenuForm m_MainMenu = new MainMenuForm();
+				m_MainMenu.Show();
+				m_CompletedGif.Close();
 			}
 			catch
 			{
 
 			}
-
 		}
-				
-		
+
 		#endregion
-		
+
 		#region ButtonColor Change. Mousemove and Leave
 		public void IconsMouseLeave(object sender, EventArgs e)   //All Icon Buttons but no dice or bonus
 		{
@@ -2003,7 +2001,7 @@ namespace XXXCalculator2020
 				{
 					answer.Clear();
 				}
-				Restart.BackColor = Color.Gray;
+				MainMenuButton.BackColor = Color.Gray;
 			}
 			catch
 			{
@@ -2017,7 +2015,7 @@ namespace XXXCalculator2020
 		{
 			try
 			{
-				Restart.BackColor = Color.White;
+				MainMenuButton.BackColor = Color.White;
 			}
 			catch
 			{
@@ -2837,7 +2835,7 @@ namespace XXXCalculator2020
 		{
 			try
 			{
-				Loading_Gif.Width += 2;
+				Loading_Gif.Width += 1;
 			}
 			catch
 			{
@@ -2856,7 +2854,11 @@ namespace XXXCalculator2020
 			try
 			{
 				m_mediaPlayer.URL = "bazzdog.mp3";
+				m_mediaPlayer.settings.volume = 70;
+				m_mediaPlayer.settings.playCount = 1;
+				m_mediaPlayer.settings.setMode("Loop",true);
 				m_mediaPlayer.controls.play();
+
 				pictureBox1.Visible = true;
 
 				Lights2Gif.Visible = true;
@@ -3203,127 +3205,123 @@ namespace XXXCalculator2020
 					answer.Text = "Kissing";
 
 				}
+				
 				else if (m_Random == 64)
-				{
-					answer.Text = "Finger Fucking";
-
-				}
-				else if (m_Random == 65)
 				{
 					answer.Text = "Finger Licking";
 
 				}
-				else if (m_Random == 66)
+				else if (m_Random == 65)
 				{
 					answer.Text = "Brown Finger";
 
 				}
-				else if (m_Random == 67)
+				else if (m_Random == 66)
 				{
 					answer.Text = "Slipery Finger";
 
 				}
-				else if (m_Random == 68)
+				else if (m_Random == 67)
 				{
 					answer.Text = "Wounded Finger";
 
 				}
-				else if (m_Random == 69)
+				else if (m_Random == 68)
 				{
 					answer.Text = "Wet Slipery Poop";
 
 				}
-				else if (m_Random == 70)
+				else if (m_Random == 69)
 				{
 					answer.Text = "Flabby Poop";
 
 				}
-				else if (m_Random == 71)
+				else if (m_Random == 70)
 				{
 					answer.Text = "Many Liters";
 
 				}
-				else if (m_Random == 72)
+				else if (m_Random == 71)
 				{
 					answer.Text = "Sex Games On";
 
 				}
-				else if (m_Random == 73)
+				else if (m_Random == 72)
 				{
 					answer.Text = "Too Much Sex";
 
 				}
-				else if (m_Random == 74)
+				else if (m_Random == 73)
 				{
 					answer.Text = "It´s a Rainy Day";
 
 				}
-				else if (m_Random == 75)
+				else if (m_Random == 74)
 				{
 					answer.Text = "Emergency";
 
 				}
-				else if (m_Random == 76)
+				else if (m_Random == 75)
 				{
 					answer.Text = "Doing Shit";
 
 				}
-				else if (m_Random == 77)
+				else if (m_Random == 76)
 				{
 					answer.Text = "Before The Pooping";
 
 				}
-				else if (m_Random == 78)
+				else if (m_Random == 77)
 				{
 					answer.Text = "End Of Anal Fun";
 
 				}
-				else if (m_Random == 79)
+				else if (m_Random == 78)
 				{
 					answer.Text = "Shitting To Mouth";
 
 				}
-				else if (m_Random == 80)
+				else if (m_Random == 79)
 				{
 					answer.Text = "Bad Diarrhea";
 
 				}
-				else if (m_Random == 81)
+				else if (m_Random == 80)
 				{
 					answer.Text = "Long Pooping Time";
 
 				}
-				else if (m_Random == 82)
+				else if (m_Random == 81)
 				{
 					answer.Text = "The Pile Of Poop";
 
 				}
-				else if (m_Random == 83)
+				else if (m_Random == 82)
 				{
 					answer.Text = "Urinary Tract Inflammation";
 
 				}
-				else if (m_Random == 84)
+				else if (m_Random == 83)
 				{
 					answer.Text = "Inflamed Urethra";
 
 				}
-				else if (m_Random == 85)
+				else if (m_Random == 84)
 				{
 					answer.Text = "Golden Shower";
 
 				}
-				else if (m_Random == 86)
+				else if (m_Random == 85)
 				{
 					answer.Text = "Hardcore Sex";
 
 				}
-				else if (m_Random == 87)
+				else if (m_Random == 86)
 				{
 					answer.Text = "Blood Bath";
 
 				}
-				else if (m_Random == 88)
+				else if (m_Random == 87)
 				{
 					answer.Text = "Very Wet Combo";
 
@@ -3557,30 +3555,7 @@ namespace XXXCalculator2020
 				{
 					m_mediaPlayer.settings.volume = 70;
 				}
-				else if (MusicVolume.Value == 75)
-				{
-					m_mediaPlayer.settings.volume = 75;
-				}
-				else if (MusicVolume.Value == 80)
-				{
-					m_mediaPlayer.settings.volume = 80;
-				}
-				else if (MusicVolume.Value == 85)
-				{
-					m_mediaPlayer.settings.volume = 85;
-				}
-				else if (MusicVolume.Value == 90)
-				{
-					m_mediaPlayer.settings.volume = 90;
-				}
-				else if (MusicVolume.Value == 95)
-				{
-					m_mediaPlayer.settings.volume = 95;
-				}
-				else if (MusicVolume.Value == 100)
-				{
-					m_mediaPlayer.settings.volume = 100;
-				}
+				
 
 
 
@@ -3742,83 +3717,29 @@ namespace XXXCalculator2020
 							MediaPlayerClick.controls.stop();
 						}
 					}
-
 					
-					
-					
-					
+										
 				}
 				else if ((ScoreBoard.Text == "4000") || (ScoreBoard.Text == "4001") || (ScoreBoard.Text == "4002") || (ScoreBoard.Text == "4003") || (ScoreBoard.Text == "4004") || (ScoreBoard.Text == "4005") || (ScoreBoard.Text == "4006") || (ScoreBoard.Text == "4007") || (ScoreBoard.Text == "4008") || (ScoreBoard.Text == "4009") || (ScoreBoard.Text == "4010") || (ScoreBoard.Text == "4011") || (ScoreBoard.Text == "4012") || (ScoreBoard.Text == "4013") || (ScoreBoard.Text == "4014") || (ScoreBoard.Text == "4015") || (ScoreBoard.Text == "4016") || (ScoreBoard.Text == "4017") || (ScoreBoard.Text == "4018") || (ScoreBoard.Text == "4019") || (ScoreBoard.Text == "4020") || (ScoreBoard.Text == "4021") || (ScoreBoard.Text == "4022") || (ScoreBoard.Text == "4023"))
 
 				{
-					//m_CompletedSound.URL = "Udidit.mp3";
-					//m_CompletedSound.settings.playCount = 1;
-					//m_CompletedSound.controls.play();
+					GreenBox1.Visible = true;
+					GreenBox2.Visible = true;
+					GreenBox3.Visible = true;
+					GreenBox4.Visible = true;
+					GreenBox5.Visible = true;
+					GreenBox6.Visible = true;
 
-					//if (m_CompletedSound.settings.playCount == 1)
-					//{
-					//	MediaPlayerClick.controls.stop();
-					//}
-
-					m_WinningGifForm.Activate();
-					m_WinningGifForm.Show();
-					m_WinningGifForm.Visible = true;
+					if (GreenBox6.Visible == true)
+					{
+						this.Close();  // Close the current Form (NormalMode)
+						m_mediaPlayer.controls.stop();
+						//New form activation
+						WinningGifsForm m_WinningGifForm = new WinningGifsForm();
+						m_WinningGifForm.Show();
+					}
+							
 									
-					
-					Progressball1.Dispose();
-					Progressball2.Dispose();
-					Progressball3.Dispose();
-					Progressball4.Dispose();
-					Progressball5.Dispose();
-					Progressball6.Dispose();
-
-					GreenBox1.Dispose();
-					GreenBox2.Dispose();
-					GreenBox3.Dispose();
-					GreenBox4.Dispose();
-					GreenBox5.Dispose();
-					GreenBox6.Dispose();
-
-					ScoreBoard.Dispose();
-
-
-					Restart.Dispose();
-					
-					Quit_Button.Dispose();
-					
-					
-					answer.Dispose();
-					IconText.Dispose();
-
-					Penis.Enabled = false;
-					Vagina.Enabled = false;
-					Anal.Enabled = false;
-					Fist.Enabled = false;
-					Finger.Enabled = false;
-					Mouth.Enabled = false;
-					Blood.Enabled = false;
-					Urine.Enabled = false;
-					Shit.Enabled = false;
-					Sweat.Enabled = false;
-					Fart.Enabled = false;
-					Wet.Enabled = false;
-
-					Dice.Enabled = false;
-					Bonus.Enabled = false;
-					Clear_Button.Enabled = false;
-					m_mediaPlayer.controls.stop();
-
-					m_mediaPlayer.settings.playCount = 80;
-					m_mediaPlayer.URL = "UWin.mp3";
-					m_mediaPlayer.controls.play();
-					MusicPlayBoy.Visible = false;
-					MusicStopBoy.Visible = false;
-					MusicVolume.Visible = false;
-					MusicVolumeText.Visible = false; 
-					pictureBox1.Dispose();
-
-					FattyTwerk_gif.Dispose();
-
 					
 				}
 			}
@@ -3827,7 +3748,6 @@ namespace XXXCalculator2020
 
 			}
 			
-
 		}
 
 		#endregion
@@ -4073,6 +3993,8 @@ namespace XXXCalculator2020
 			}
 		}
 		#endregion
+
+		
 	}
 
 }

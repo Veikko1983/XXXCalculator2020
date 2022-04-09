@@ -3,19 +3,21 @@ using System.Drawing;
 using System.Windows.Forms;
 using WMPLib;
 
+
 namespace XXXCalculator2020
 {
 	public partial class Lightshow : Form
 	{
 		readonly WindowsMediaPlayer m_Music = new WindowsMediaPlayer();
-		
+		//readonly HelloForm m_HelloForm = new HelloForm();
 		public Lightshow()
 		{
 			InitializeComponent();
-
+			this.CenterToScreen();
 			m_Music.controls.stop();
 			m_Music.URL = "Lightshow.mp3";
-			m_Music.settings.playCount = 60;
+			m_Music.settings.playCount = 1;
+			m_Music.settings.setMode("Loop", true);
 			m_Music.controls.play();
 
 		}
@@ -27,15 +29,14 @@ namespace XXXCalculator2020
 						
 			try
 			{
-				//HelloForm m_HelloForm = new HelloForm();
-				//MainMenuForm m_MainMenuF = new MainMenuForm();
-				//m_Music.controls.stop();
+				m_Music.controls.stop();
 								
-				//this.Hide();
-				//m_MainMenuF.Show();
-				//m_HelloForm.Hide();
+				this.Close();
+				MainMenuForm m_MainMenuForm = new MainMenuForm();
+				m_MainMenuForm.Show();
+				
+				//Application.Restart();
 
-				Application.Restart();
 			}
 			catch
 			{
